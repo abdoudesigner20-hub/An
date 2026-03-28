@@ -27,7 +27,8 @@ android.ndk_path = /home/runner/.buildozer/android/platform/android-ndk-r25b
 
 android.gradle_dependencies = com.google.android.gms:play-services-ads:22.6.0
 android.enable_androidx = True
-android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-3896006690470878~2043942153
+
+android.manifest = AndroidManifest.tmpl.xml
 
 android.archs = arm64-v8a, armeabi-v7a
 
