@@ -5,11 +5,12 @@ package.domain = org.abdoudesigner
 
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,json,mp3,ttf
-source.include_patterns = *.png,*.jpg,*.mp3,*.json
 
 version = 1.0
 
 requirements = python3,kivy==2.3.0,requests,kivmob
+
+source.include_patterns = *.png,*.jpg,*.mp3,*.json
 
 orientation = portrait
 fullscreen = 0
@@ -19,11 +20,16 @@ android.api = 33
 android.minapi = 21
 android.ndk = 25b
 android.ndk_api = 21
-android.archs = arm64-v8a,armeabi-v7a
 android.accept_sdk_license = True
+
+android.sdk_path = /home/runner/.buildozer/android/platform/android-sdk
+android.ndk_path = /home/runner/.buildozer/android/platform/android-ndk-r25b
 
 android.gradle_dependencies = com.google.android.gms:play-services-ads:22.6.0
 android.enable_androidx = True
+android.meta_data = com.google.android.gms.ads.APPLICATION_ID:ca-app-pub-3896006690470878~2043942153
+
+android.archs = arm64-v8a, armeabi-v7a
 
 log_level = 2
 warn_on_root = 1
