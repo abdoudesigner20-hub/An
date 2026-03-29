@@ -21,6 +21,25 @@ import random
 
 Window.clearcolor = (0, 0, 0, 1)
 
+# ── AdMob IDs ──────────────────────────────────
+APP_ID          = "ca-app-pub-3896006690470878~3513895326"
+BANNER_ID       = "ca-app-pub-3896006690470878/5006001041"
+INTERSTITIAL_ID = "ca-app-pub-3896006690470878/8023782714"
+# ───────────────────────────────────────────────
+
+try:
+    from kivmob import KivMob
+    _ads = KivMob(APP_ID)
+    _ads.new_banner(BANNER_ID, top=False)
+    _ads.request_banner()
+    _ads.show_banner()
+    _ads.new_interstitial(INTERSTITIAL_ID)
+    _ads.request_interstitial()
+    ADMOB_OK = True
+except Exception:
+    _ads = None
+    ADMOB_OK = False
+
 
 class RoundedImage(Image):
     def __init__(self, radius=40, **kwargs):
@@ -364,13 +383,31 @@ class EnhancedBankUI(BoxLayout):
 
 class BankApp(App):
     def build(self):
+        # إظهار الإعلان الكامل عند الدخول للتطبيق
+        Clock.schedule_once(self._show_intro_ad, 2)
         return EnhancedBankUI()
 
+    def _show_intro_ad(self, dt):
+        try:
+            if ADMOB_OK and _ads:
+                if _ads.is_interstitial_loaded():
+                    _ads.show_interstitial()
+                    Clock.schedule_once(lambda d: _ads.request_interstitial(), 1)
+        except: pass
+
     def show_full_ad(self):
-        pass
+        try:
+            if ADMOB_OK and _ads:
+                if _ads.is_interstitial_loaded():
+                    _ads.show_interstitial()
+                    Clock.schedule_once(lambda d: _ads.request_interstitial(), 1)
+        except: pass
 
     def on_resume(self):
-        pass
+        try:
+            if ADMOB_OK and _ads:
+                _ads.show_banner()
+        except: pass
 
     def on_pause(self):
         return True
@@ -378,4 +415,4 @@ class BankApp(App):
 
 if __name__ == "__main__":
     BankApp().run()
-        
+            
