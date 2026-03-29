@@ -8,7 +8,7 @@ source.include_exts = py,png,jpg,kv,atlas,json,mp3,ttf
 
 version = 1.0
 
-requirements = python3,kivy==2.3.0,requests,pyjnius
+requirements = python3,kivy==2.3.0,requests
 
 source.include_patterns = *.png,*.jpg,*.mp3,*.json
 
@@ -24,11 +24,6 @@ android.accept_sdk_license = True
 
 android.sdk_path = /home/runner/.buildozer/android/platform/android-sdk
 android.ndk_path = /home/runner/.buildozer/android/platform/android-ndk-r25b
-
-android.gradle_dependencies = com.google.android.gms:play-services-ads:22.6.0
-android.enable_androidx = True
-
-android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-3896006690470878~2043942153
 
 android.archs = arm64-v8a, armeabi-v7a
 
