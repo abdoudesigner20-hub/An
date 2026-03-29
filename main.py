@@ -19,54 +19,7 @@ import json
 import webbrowser
 import random
 
-# تحسين مظهر النوافذ
 Window.clearcolor = (0, 0, 0, 1)
-
-# ── AdMob عبر Android Java bridge ──
-def init_admob():
-    try:
-        from jnius import autoclass
-        MobileAds = autoclass('com.google.android.gms.ads.MobileAds')
-        PythonActivity = autoclass('org.kivy.android.PythonActivity')
-        activity = PythonActivity.mActivity
-        MobileAds.initialize(activity)
-    except Exception:
-        pass
-
-def load_banner_ad():
-    try:
-        from jnius import autoclass
-        AdView = autoclass('com.google.android.gms.ads.AdView')
-        AdRequest = autoclass('com.google.android.gms.ads.AdRequest')
-        AdRequestBuilder = autoclass('com.google.android.gms.ads.AdRequest$Builder')
-        AdSize = autoclass('com.google.android.gms.ads.AdSize')
-        PythonActivity = autoclass('org.kivy.android.PythonActivity')
-        activity = PythonActivity.mActivity
-        adView = AdView(activity)
-        adView.setAdSize(AdSize.BANNER)
-        adView.setAdUnitId("ca-app-pub-3896006690470878/6968965776")
-        adRequest = AdRequestBuilder().build()
-        adView.loadAd(adRequest)
-    except Exception:
-        pass
-
-def show_interstitial_ad():
-    try:
-        from jnius import autoclass
-        InterstitialAd = autoclass('com.google.android.gms.ads.interstitial.InterstitialAd')
-        AdRequest = autoclass('com.google.android.gms.ads.AdRequest')
-        AdRequestBuilder = autoclass('com.google.android.gms.ads.AdRequest$Builder')
-        PythonActivity = autoclass('org.kivy.android.PythonActivity')
-        activity = PythonActivity.mActivity
-        adRequest = AdRequestBuilder().build()
-        InterstitialAd.load(
-            activity,
-            "ca-app-pub-3896006690470878/7380029313",
-            adRequest,
-            None
-        )
-    except Exception:
-        pass
 
 
 class RoundedImage(Image):
@@ -88,6 +41,7 @@ class RoundedImage(Image):
             StencilUnUse()
             StencilPop()
 
+
 class ImageButton(ButtonBehavior, Image):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -99,6 +53,7 @@ class ImageButton(ButtonBehavior, Image):
     def update_rect(self, instance, value):
         self.rect.pos = instance.pos
         self.rect.size = instance.size
+
 
 class RoundBox(ButtonBehavior, BoxLayout):
     def __init__(self, **kwargs):
@@ -115,6 +70,7 @@ class RoundBox(ButtonBehavior, BoxLayout):
     def update_rect(self, *args):
         self.rect.pos = self.pos
         self.rect.size = self.size
+
 
 class SettingsPopup(ModalView):
     def __init__(self, main_app, **kwargs):
@@ -166,15 +122,12 @@ class SettingsPopup(ModalView):
 
         sound_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height=60, padding=[10, 0])
         sound_label = Label(text="Sound", color=(0, 0, 0, 1), font_size='14sp', halign='center', size_hint_x=0.5)
-
         initial_source = 'btn1.png' if self.main_app.sound_enabled else 'btn2.png'
         self.sound_toggle_btn = ImageButton(source=initial_source, size_hint_x=0.3, allow_stretch=True, keep_ratio=True)
         self.sound_toggle_btn.bind(on_release=self.toggle_sound)
-
         sound_layout.add_widget(sound_label)
         sound_layout.add_widget(self.sound_toggle_btn)
         layout.add_widget(sound_layout)
-
         self.add_widget(layout)
 
     def update_rect(self, *args):
@@ -191,6 +144,7 @@ class SettingsPopup(ModalView):
 
     def open_mail(self, instance):
         webbrowser.open("mailto:abdoudesigner20@gmail.com")
+
 
 class EnhancedBankUI(BoxLayout):
     def __init__(self, **kwargs):
@@ -219,7 +173,6 @@ class EnhancedBankUI(BoxLayout):
         title_box = BoxLayout(size_hint_y=0.091, height=190, orientation='horizontal', padding=[0, 1])
         title_box.add_widget(Label(text="CURRENCY CONVERTER PRO", color=(1, 1, 1, 1),
                                   font_size='16sp', bold=True, halign='left', size_hint_x=0.44))
-
         settings_btn = ImageButton(source='parametres.png', size_hint_x=0.1, allow_stretch=True, keep_ratio=True)
         settings_btn.bind(on_release=self.show_settings)
         title_box.add_widget(settings_btn)
@@ -287,8 +240,8 @@ class EnhancedBankUI(BoxLayout):
 
     def show_settings(self, instance):
         try:
-            show_interstitial_ad()
-        except Exception:
+            App.get_running_app().show_full_ad()
+        except:
             pass
         SettingsPopup(main_app=self).open()
 
@@ -341,10 +294,12 @@ class EnhancedBankUI(BoxLayout):
     def _apply_new_rates(self, new_rates, old_rates_copy):
         self.old_rates = old_rates_copy
         self.rates.update(new_rates)
-        with open(self.old_rates_file, 'w') as f:
-            json.dump(self.old_rates, f)
-        with open(self.rates_file, 'w') as f:
-            json.dump(self.rates, f)
+        try:
+            with open(self.old_rates_file, 'w') as f:
+                json.dump(self.old_rates, f)
+            with open(self.rates_file, 'w') as f:
+                json.dump(self.rates, f)
+        except: pass
         self.apply_arrow_logic()
         self.update_values()
 
@@ -409,23 +364,18 @@ class EnhancedBankUI(BoxLayout):
 
 class BankApp(App):
     def build(self):
-        # تهيئة AdMob
-        Thread(target=init_admob, daemon=True).start()
-        Clock.schedule_once(lambda dt: Thread(target=load_banner_ad, daemon=True).start(), 2)
         return EnhancedBankUI()
 
     def show_full_ad(self):
-        try:
-            show_interstitial_ad()
-        except Exception:
-            pass
+        pass
 
     def on_resume(self):
-        try:
-            load_banner_ad()
-        except Exception:
-            pass
+        pass
+
+    def on_pause(self):
+        return True
 
 
 if __name__ == "__main__":
     BankApp().run()
+        
