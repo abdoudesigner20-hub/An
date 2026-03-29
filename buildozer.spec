@@ -12,6 +12,9 @@ requirements = python3,kivy==2.3.0,requests,kivmob
 
 source.include_patterns = *.png,*.jpg,*.mp3,*.json
 
+icon.filename = %(source.dir)s/icon.png
+presplash.filename = %(source.dir)s/splash.png
+
 orientation = portrait
 fullscreen = 0
 
