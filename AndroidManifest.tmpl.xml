@@ -17,7 +17,7 @@
         <!-- AdMob App ID -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3896006690470878~2043942153" />
+            android:value="ca-app-pub-3896006690470878~3513895326" />
 
         <activity
             android:name="org.kivy.android.PythonActivity"
