@@ -211,7 +211,7 @@ class EnhancedBankUI(BoxLayout):
             ("EGP", "egy.png"), ("JPY", "jpy.png"), ("BTC", "btc.jpg"), ("CNY", "chn.png"),
             ("AED", "uae.png"), ("RUB", "rus.png"), ("MAD", "mar.png"), ("CAD", "can.png"),
             ("CHF", "che.png"), ("MXN", "mex.png"), ("INR", "ind.png"), ("AUD", "aud.png"),
-            ("KRW", "kor.png"), ('BRL', 'brl.jpg'), ('ARS', 'ars.jpg')
+            ("KRW", "kor.png"), ('BRL', 'brl.jpg'), ('ARS', 'ars.jpg'), ('QAR', 'qar.jpg'), ('BHD', 'bhd.jpg')
         ]
 
         for code, flag in currencies:
