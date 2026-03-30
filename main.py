@@ -181,7 +181,7 @@ class EnhancedBankUI(BoxLayout):
             "SAR": 0.027, "TND": 0.023, "KWD": 0.0022, "EGP": 0.35, "JPY": 1.10,
             "BTC": 0.0000001, "CNY": 0.053, "AED": 0.027, "RUB": 0.68, "MAD": 0.074,
             "CAD": 0.010, "CHF": 0.0065, "MXN": 0.12, "INR": 0.61, "AUD": 0.011,
-            "KRW": 9.8, 'BRL': 0.04, 'ARS': 10.56
+            "KRW": 9.8, 'BRL': 0.04, 'ARS': 10.56, 'QAR':36.61, 'BHD':353.99
         }
         self.old_rates = {k: v * random.choice([0.99, 1.01]) for k, v in self.rates.items()}
 
@@ -335,7 +335,7 @@ class EnhancedBankUI(BoxLayout):
                     "SAR": "SAR", "TND": "TND", "KWD": "KWD", "EGP": "EGP", "JPY": "JPY",
                     "CNY": "CNY", "AED": "AED", "RUB": "RUB", "MAD": "MAD", "CAD": "CAD",
                     "CHF": "CHF", "MXN": "MXN", "INR": "INR", "AUD": "AUD", "KRW": "KRW",
-                    'BRL': 'BRL', 'ARS': 'ARS'
+                    'BRL': 'BRL', 'ARS': 'ARS', 'QAR':'QAR','BHD':'BHD'
                 }
                 new_rates = {}
                 for app_code, api_code in mapping.items():
