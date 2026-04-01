@@ -383,7 +383,6 @@ class EnhancedBankUI(BoxLayout):
 
 class BankApp(App):
     def build(self):
-        # إظهار الإعلان الكامل عند الدخول للتطبيق
         Clock.schedule_once(self._show_intro_ad, 2)
         return EnhancedBankUI()
 
